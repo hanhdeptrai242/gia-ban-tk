@@ -13,62 +13,112 @@
             --text-sub: #6b7280;
             --success: #10b981;
             --danger: #ef4444;
+            --copy-btn: #8b5cf6;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 80px; padding-top: 2rem; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+        body { background-color: var(--bg); color: var(--text-main); padding-bottom: 80px; padding-top: 1.5rem; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 0 1rem; }
 
         /* Controls */
         .controls-area {
             display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;
-            margin-bottom: 1.5rem; background: white; padding: 1.2rem; border-radius: 12px;
+            margin-bottom: 1.5rem; background: white; padding: 1rem; border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .search-container { flex-grow: 1; }
-        .search-input { width: 100%; padding: 12px 20px; border: 1px solid #d1d5db; border-radius: 50px; outline: none; transition: 0.3s; }
+        .search-container { flex-grow: 1; min-width: 200px; }
+        .search-input { width: 100%; padding: 10px 20px; border: 1px solid #d1d5db; border-radius: 50px; outline: none; transition: 0.3s; }
         .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
         
-        .view-options { display: flex; gap: 0.5rem; align-items: center; }
-        .view-btn { background: #f3f4f6; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; color: var(--text-sub); transition: 0.2s; }
+        .right-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        
+        /* View Options Buttons */
+        .view-options { display: flex; gap: 4px; align-items: center; background: #f3f4f6; padding: 4px; border-radius: 8px; }
+        .view-btn { background: transparent; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; color: var(--text-sub); transition: 0.2s; font-size: 0.85rem; font-weight: 600; }
         .view-btn:hover { background: #e5e7eb; }
-        .view-btn.active { background: var(--primary); color: white; }
-        .btn-reload { background: var(--success); color: white; margin-left: 10px; }
-        .btn-reload:hover { background: #059669; }
+        .view-btn.active { background: white; color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        
+        .btn-reload { background: transparent; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; padding: 0 10px; border: none; }
+        .btn-reload:hover { color: var(--success); }
 
-        /* Grid */
-        .product-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+        /* BUTTON STYLES */
+        .action-btn {
+            text-decoration: none; padding: 8px 15px; border-radius: 50px; font-weight: bold; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 5px; transition: 0.2s; white-space: nowrap; border: none; cursor: pointer;
+        }
+
+        /* Nút Sửa Data */
+        .btn-sheet { background: #e0e7ff; color: var(--primary); }
+        .btn-sheet:hover { background: var(--primary); color: white; }
+
+        /* Nút Copy Text */
+        .btn-copy { background: #f3e8ff; color: var(--copy-btn); }
+        .btn-copy:hover { background: var(--copy-btn); color: white; }
+
+        /* Grid System */
+        .product-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
         .product-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
         .product-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
         .product-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+        .product-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
 
+        /* RESPONSIVE MOBILE */
         @media (max-width: 768px) {
-            .product-grid.cols-2, .product-grid.cols-3, .product-grid.cols-4 { grid-template-columns: 1fr; }
-            .controls-area { flex-direction: column; align-items: stretch; }
-            .view-options { justify-content: center; margin-top: 10px; }
+            .container { padding: 0 8px; }
+            .controls-area { gap: 10px; padding: 10px; }
+            .right-actions { justify-content: space-between; width: 100%; }
+            
+            .action-btn { font-size: 0.8rem; padding: 6px 12px; }
+            
+            /* Ép 2 cột trên mobile */
+            .product-grid, .product-grid.cols-2, .product-grid.cols-3, .product-grid.cols-4, .product-grid.cols-5 { 
+                grid-template-columns: repeat(2, 1fr) !important; gap: 8px;
+            }
+
+            .card { border-radius: 12px; }
+            .card-header { padding: 10px; gap: 8px; flex-direction: column; text-align: center; }
+            .visual-box { width: 40px; height: 40px; margin: 0 auto; }
+            .card-title { font-size: 0.9rem; margin-top: 5px; height: 2.4em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+            .badge { font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+            .card-body { padding: 10px; }
+            .label { font-size: 0.75rem; }
+            .price { font-size: 0.95rem; }
+            .unit { font-size: 0.7rem; }
+            .profit-box { padding: 5px; margin-top: 8px; }
+            .profit-value { font-size: 1rem; }
+            .margin-percent { font-size: 0.65rem; }
+            .view-options { display: none; } 
         }
 
-        /* Card */
-        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: transform 0.2s; display: flex; flex-direction: column; border: 1px solid transparent; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #e0e7ff; }
+        /* Card Design */
+        .card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.2s; display: flex; flex-direction: column; border: 1px solid transparent; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #e0e7ff; }
         .card-header { padding: 1.2rem; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; gap: 1rem; }
-        .icon { font-size: 2rem; background: #f0fdf4; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0; }
-        .card-title { font-weight: bold; font-size: 1.05rem; line-height: 1.3; }
+        
+        .visual-box { 
+            width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%; overflow: hidden; 
+            display: flex; align-items: center; justify-content: center;
+            background-color: white; border: 1px solid #e5e7eb;
+        }
+        .icon-emoji { font-size: 1.8rem; background: #f0fdf4; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border: none;}
+        .product-img { width: 85%; height: 85%; object-fit: contain; } 
+
+        .card-title { font-weight: bold; font-size: 1.05rem; line-height: 1.3; color: #111827; }
         .card-body { padding: 1.2rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .price-row { display: flex; justify-content: space-between; margin-bottom: 0.8rem; align-items: baseline; }
+        .price-row { display: flex; justify-content: space-between; margin-bottom: 0.6rem; align-items: baseline; }
         .label { color: var(--text-sub); font-size: 0.85rem; }
         .price-wrapper { text-align: right; }
         .price { font-weight: 700; }
-        .unit { font-size: 0.8rem; color: var(--text-sub); font-weight: normal; }
+        .unit { font-size: 0.75rem; color: var(--text-sub); font-weight: normal; margin-left: 2px; }
         .cost-price { color: var(--danger); }
-        .sell-price { color: var(--primary); font-size: 1.2rem; }
+        .sell-price { color: var(--primary); font-size: 1.1rem; }
+        
         .profit-box { background: #ecfdf5; border: 1px solid #d1fae5; padding: 0.8rem; border-radius: 8px; margin-top: auto; text-align: center; }
         .profit-value { color: var(--success); font-size: 1.2rem; font-weight: bold; }
-        .margin-percent { font-size: 0.75rem; color: var(--success); background: white; padding: 2px 6px; border-radius: 10px; margin-left: 5px; border: 1px solid var(--success); vertical-align: middle; }
+        .margin-percent { font-size: 0.75rem; color: var(--success); background: white; padding: 1px 6px; border-radius: 10px; margin-left: 5px; border: 1px solid var(--success); vertical-align: middle; }
+        .badge { display: inline-block; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; background: #e0e7ff; color: var(--primary); margin-top: 4px; }
         
-        /* Loading */
         #loading { text-align: center; padding: 2rem; color: var(--text-sub); font-size: 1.2rem; }
-        .error-msg { color: var(--danger); text-align: center; padding: 2rem; }
     </style>
 </head>
 <body>
@@ -80,42 +130,102 @@
                 <input type="text" class="search-input" id="searchInput" placeholder="🔍 Tìm kiếm dịch vụ...">
             </div>
             
-            <div class="view-options">
-                <span style="font-size: 0.9rem; color: #6b7280; margin-right: 5px;">Hiển thị:</span>
-                <button class="view-btn active" onclick="setGrid('auto', this)">Auto</button>
-                <button class="view-btn" onclick="setGrid('2', this)">2</button>
-                <button class="view-btn" onclick="setGrid('3', this)">3</button>
-                <button class="view-btn" onclick="setGrid('4', this)">4</button>
-                <button class="view-btn btn-reload" onclick="loadData()" title="Làm mới dữ liệu">↻</button>
+            <div class="right-actions">
+                <!-- Nút Link đến Google Sheet -->
+                <a href="https://docs.google.com/spreadsheets/d/1GGqNkmKgjcmkZOQ6HZmKK-nvm5VBu7UW1PlWZpcCExg/edit?gid=0#gid=0" target="_blank" class="action-btn btn-sheet">
+                    📝 Sửa Data
+                </a>
+                
+                <!-- Nút Copy Text -->
+                <button onclick="copyAdText()" class="action-btn btn-copy" id="btnCopy">
+                    📋 Copy Bảng Giá
+                </button>
+
+                <div class="view-options">
+                    <button class="view-btn" onclick="setGrid('3', this)">3</button>
+                    <!-- Đặt class active vào nút 4 -->
+                    <button class="view-btn active" id="btn-default" onclick="setGrid('4', this)">4</button>
+                    <button class="view-btn" onclick="setGrid('5', this)">5</button>
+                </div>
+                <button class="btn-reload" onclick="loadData(true)" title="Làm mới">↻</button>
             </div>
         </div>
 
         <!-- Trạng thái Loading -->
-        <div id="loading">⏳ Đang tải dữ liệu từ Google Sheets...</div>
+        <div id="loading">⏳ Đang tải dữ liệu...</div>
 
-        <!-- Danh sách -->
-        <div class="product-grid" id="productGrid"></div>
+        <!-- Danh sách (Mặc định class cols-4) -->
+        <div class="product-grid cols-4" id="productGrid"></div>
     </div>
 
     <!-- Thư viện đọc CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
-        // ============================================================
-        // LINK GOOGLE SHEET (Dạng CSV) CỦA BẠN:
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSUF_TugQZTBNvELo1FYtnb-BaGphSuCKymQcl3GJWrEeSB2-CUIXMH8nD-2KtgsrYJ_gM9rPipcuci/pub?output=csv'; 
-        // ============================================================
-
+        // LINK CSV
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSUF_TugQZTBNvELo1FYtnb-BaGphSuCKymQcl3GJWrEeSB2-CUIXMH8nD-2KtgsrYJ_gM9rPipcuci/pub?output=csv'; 
+        
         let allProducts = [];
 
+        // Định dạng tiền hiển thị trên Web (có chữ đ)
         const formatMoney = (amount) => new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
+
+        // Định dạng tiền cho Text Quảng Cáo
+        const formatAdPrice = (amount) => {
+            if (amount >= 1000) {
+                return (amount / 1000) + 'k';
+            }
+            return amount;
+        }
+
+        // --- TÍNH NĂNG TẠO TEXT QUẢNG CÁO ---
+        function copyAdText() {
+            if (allProducts.length === 0) {
+                alert("Chưa có dữ liệu để copy!");
+                return;
+            }
+
+            let adText = "🔥 BẢNG GIÁ DỊCH VỤ SIÊU RẺ 🔥\n\n";
+
+            const inputVal = document.getElementById('searchInput').value.toLowerCase();
+            const productsToCopy = inputVal ? allProducts.filter(p => 
+                (p.name && p.name.toLowerCase().includes(inputVal)) || 
+                (p.note && p.note.toLowerCase().includes(inputVal))
+            ) : allProducts;
+
+            productsToCopy.forEach(p => {
+                const price = parseInt(p.price) || 0;
+                const priceText = formatAdPrice(price);
+                const noteText = p.note ? ` (${p.note})` : '';
+                const icon = p.icon || '👉';
+                
+                adText += `${icon} ${p.name}: ${priceText}${p.unit}${noteText}\n\n`;
+            });
+
+            adText += "------------------\n💯 Bảo hành 1 đổi 1 full thời gian!\n🟢 Liên hệ ngay để được hỗ trợ.";
+
+            navigator.clipboard.writeText(adText).then(() => {
+                const btn = document.getElementById('btnCopy');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ Đã Copy!';
+                btn.style.background = '#10b981';
+                btn.style.color = 'white';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '#f3e8ff';
+                    btn.style.color = '#8b5cf6';
+                }, 2000);
+            }).catch(err => {
+                alert('Lỗi copy: ' + err);
+            });
+        }
 
         function setGrid(cols, btnElement) {
             const grid = document.getElementById('productGrid');
-            grid.classList.remove('cols-2', 'cols-3', 'cols-4');
-            if (cols !== 'auto') grid.classList.add(`cols-${cols}`);
-            
-            document.querySelectorAll('.view-options .view-btn:not(.btn-reload)').forEach(btn => btn.classList.remove('active'));
+            grid.className = 'product-grid'; 
+            grid.classList.add(`cols-${cols}`);
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
             if(btnElement) btnElement.classList.add('active');
         }
 
@@ -124,7 +234,7 @@
             grid.innerHTML = '';
 
             if (data.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center;">Không tìm thấy kết quả</div>';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 20px;">Không tìm thấy kết quả</div>';
                 return;
             }
 
@@ -139,11 +249,18 @@
                 const profitDisplay = costUnknown ? `~${formatMoney(price)}` : formatMoney(profit);
                 const marginDisplay = costUnknown ? "" : `+${margin}%`;
 
+                let visualHTML = '';
+                if (item.image_url && item.image_url.trim().length > 5) {
+                    visualHTML = `<div class="visual-box"><img src="${item.image_url}" class="product-img" alt="img" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=\\'icon-emoji\\'>${item.icon}</div>'"></div>`;
+                } else {
+                    visualHTML = `<div class="visual-box" style="border:none; background:transparent;"><div class="icon-emoji">${item.icon || '📦'}</div></div>`;
+                }
+
                 const html = `
                     <div class="card">
                         <div class="card-header">
-                            <div class="icon">${item.icon || '📦'}</div>
-                            <div>
+                            ${visualHTML}
+                            <div style="width:100%">
                                 <div class="card-title">${item.name}</div>
                                 <div class="badge">${item.note || ''}</div>
                             </div>
@@ -165,7 +282,7 @@
                             </div>
                             
                             <div class="profit-box">
-                                <div class="label" style="margin-bottom:5px;">Lợi nhuận</div>
+                                <div class="label" style="margin-bottom:2px; font-size: 0.75rem;">Lợi nhuận</div>
                                 <span class="profit-value">${profitDisplay}</span>
                                 <span class="margin-percent" style="display: ${costUnknown ? 'none' : 'inline-block'}">${marginDisplay}</span>
                             </div>
@@ -176,23 +293,26 @@
             });
         }
 
-        function loadData() {
+        function loadData(isForceReload = false) {
             const loading = document.getElementById('loading');
             const grid = document.getElementById('productGrid');
             
             loading.style.display = 'block';
-            grid.innerHTML = '';
+            if(isForceReload) grid.innerHTML = '';
 
-            Papa.parse(SHEET_URL, {
+            const finalUrl = CSV_URL + '&t=' + Date.now();
+
+            Papa.parse(finalUrl, {
                 download: true,
                 header: true,
+                skipEmptyLines: true,
                 complete: function(results) {
                     loading.style.display = 'none';
                     allProducts = results.data.filter(item => item.name && item.name.trim() !== '');
                     renderProducts(allProducts);
                 },
                 error: function(err) {
-                    loading.innerHTML = `<div class="error-msg">❌ Lỗi tải dữ liệu. Hãy kiểm tra lại link Google Sheet!</div>`;
+                    loading.innerHTML = `<div class="error-msg">❌ Lỗi kết nối.</div>`;
                 }
             });
         }
